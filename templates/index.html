@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+<h1>My To Do list</h1>
+
+<form method="POST" action="/">
+    {% csrf_token %}
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Task">
+        <label for="floatingInput">Enter Task</label>
+        <input type="submit" name="Create Task" class="btn btn-primary">
+    </div>
+</form>
+{% for task in tasks %}
+<div class="list-group">
+    <label class="list-group-item">
+        {% if task.completed %}
+        <span><s>{{ task.title }}</span></s> {% else %}
+        <span>{{ task.title }}</span> {% endif %}
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <a href="{% url 'update_task' task.id %}" class="btn btn-primary">Update</a>
+          
+            <div class="btn-group" role="group">
+              <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Delete
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <li><a class="dropdown-item" href="{% url 'delete' task.id %}" >Yes</a></li> 
+                <li><a class="dropdown-item" href="/">No</a></li>
+              </ul>
+            </div>
+          </div>
+        
+    </label>
+</div>
+
+{% endfor %} {% endblock %}
