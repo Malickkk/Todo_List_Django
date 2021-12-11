@@ -1,9 +1,9 @@
 {% extends "base.html" %} {% block content %}
 <p>Do you want to delete "{{ item.title }}"?</p>
 
-<form method="post" action="">
+<a href="{% url 'index' %}">Cancel</a>
+<form method="post">
     {% csrf_token %}
-    <input type="submit" action="{% url 'index'}" value="Cancel">
     <input type="submit" value="Confirm">
 </form>
 {% endblock %}
